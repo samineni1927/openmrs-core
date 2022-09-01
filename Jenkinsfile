@@ -5,7 +5,7 @@ pipeline {
     }
 
     triggers {
-        pollSCM (cron '* 2 * * *')
+        pollSCM ('H 2 * * *')
     }
 
     parameters {
