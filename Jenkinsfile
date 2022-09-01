@@ -5,11 +5,7 @@ pipeline {
     }
 
     triggers {
-        pollSCM ('H 2 * * *')
-    }
-
-    parameters {
-        choice ( name: 'GOAL', choices: ['compile', 'pacakge', 'clean package'])
+        cron ('H 2 * * *')
     }
 
     stages {
@@ -23,7 +19,7 @@ pipeline {
         stage('Build the code and sonar analysis') {
             steps {
                 withSonarQubeEnv(sonar) {
-                    sh "mvn ${params.GOAL} sonar:sonar"
+                    sh "mvn clean package sonar:sonar"
                 }
             }
         }
