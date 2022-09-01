@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'jenkins' }
+    agent { label 'buildtool' }
     options {
         timeout(time:1, unit: 'HOURS')
     }
