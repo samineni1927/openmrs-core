@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'buildtool' }
+    agent { label 'jenkins' }
     options {
         timeout(time:1, unit: 'HOURS')
     }
@@ -41,12 +41,12 @@ pipeline {
         success {
             // send the success email
             echo "Success"
-            mail bcc: '', body: "BUILD URL: ${BUILD_URL} TEST RESULTS ${RUN_TESTS_DISPLAY_URL} ", cc: '', from: 'samineni114@qtdevops.com', replyTo: '', 
+            mail bcc: '', body: "BUILD URL: ${BUILD_URL} TEST RESULTS ${RUN_TESTS_DISPLAY_URL} ", cc: '', from: 'samineni114@sami.com', replyTo: '', 
                 subject: "${JOB_BASE_NAME}: Build ${BUILD_ID} Succeded", to: 'samineni114@gmail.com'
         }
         unsuccessful {
             //send the unsuccess email
-            mail bcc: '', body: "BUILD URL: ${BUILD_URL} TEST RESULTS ${RUN_TESTS_DISPLAY_URL} ", cc: '', from: 'samineni114@qtdevops.com', replyTo: '', 
+            mail bcc: '', body: "BUILD URL: ${BUILD_URL} TEST RESULTS ${RUN_TESTS_DISPLAY_URL} ", cc: '', from: 'samineni114@sami.com', replyTo: '', 
                 subject: "${JOB_BASE_NAME}: Build ${BUILD_ID} Failed", to: 'samineni114@gmail.com'
         }
     }
