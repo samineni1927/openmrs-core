@@ -7,6 +7,10 @@ pipeline {
     triggers {
         cron ('H 2 * * *')
     }
+    
+    parameters {
+        choice(name: 'GOAL', choices: ['compile', 'package', 'clean package'])
+    }
 
     stages {
         stage('source code') {
@@ -19,7 +23,7 @@ pipeline {
         stage('Build the code and sonar analysis') {
             steps {
                 withSonarQubeEnv('sonar') {
-                    sh "mvn clean package sonar:sonar"
+                    sh "mvn ${params.GOAL} sonar:sonar"
                 }
             }
         }
