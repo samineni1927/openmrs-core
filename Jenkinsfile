@@ -9,7 +9,7 @@ pipeline {
     }
 
     parameters {
-        choice ( name: 'GOAL' choices: ['compile', 'pacakge', 'clean package'])
+        choice ( name: 'GOAL', choices: ['compile', 'pacakge', 'clean package'])
     }
 
     stages {
