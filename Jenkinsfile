@@ -50,17 +50,15 @@ pipeline {
                     snapshotRepo: 'openmrsmaven-libs-snapshot-local',
                 )
 
-                // rtMavenRun (
-                //     environment {
-                //         MAVEN_HOME = '/usr/share/maven'
-                //     }
-                //     useWrapper: true,
-                //     pom: 'maven-example/pom.xml',
-                //     goals: 'clean install',
-                //     resolverId: 'openmrs-resolver-unique-id',
-                //     deployerId: 'openmrs-deployer-unique-id'
+                rtMavenRun (
+                    tool: MAVEN_TOOL,
+                    useWrapper: true,
+                    pom: 'maven-example/pom.xml',
+                    goals: 'clean install',
+                    resolverId: 'openmrs-resolver-unique-id',
+                    deployerId: 'openmrs-deployer-unique-id'
                     
-                // )
+                )
 
             }
         }
@@ -70,15 +68,15 @@ pipeline {
                     serverId: 'jfrog',
                 )
 
-                rtDownload (
-                    serverId: 'jfrog',
-                    specPath: '**/workspace/spec.json'
-                )
+                // rtDownload (
+                //     serverId: 'jfrog',
+                //     specPath: '**/workspace/spec.json'
+                // )
 
-                rtUpload (
-                    serverId: 'jfrog',
-                    specPath: '**/workspace/spec.json'
-                )
+                // rtUpload (
+                //     serverId: 'jfrog',
+                //     specPath: '**/workspace/spec.json'
+                // )
 
             }
         }
