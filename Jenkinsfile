@@ -78,6 +78,7 @@ pipeline {
                 rtUpload (
                     serverId: 'openmrs-id',
                     specPath: 'path/to/spec/relative/to/workspace/spec.json'
+                )
 
             }
         }
