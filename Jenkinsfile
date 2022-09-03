@@ -34,8 +34,8 @@ pipeline {
 
         stage('reporting') {
             steps {
-                junit testResults: '**/api/target/surefire-reports/*.xml'
-                junit testResults: '**/liquibase/target/surefire-reports/*.xml'
+                // junit testResults: '**/api/target/surefire-reports/*.xml'
+                // junit testResults: '**/liquibase/target/surefire-reports/*.xml'
                 junit testResults: '**/web/target/surefire-reports/*.xml'
             }
         }
