@@ -52,7 +52,7 @@ pipeline {
 
                 rtMavenRun (
                     environment {
-                        MAVEN_HOME = '/usr/share/maven',
+                        MAVEN_HOME = '/usr/share/maven'
                         useWrapper: true,
                         pom: 'maven-example/pom.xml',
                         goals: 'clean install',
