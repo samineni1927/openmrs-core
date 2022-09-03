@@ -20,13 +20,13 @@ pipeline {
             }
         }
 
-        stage('Build the code and sonar analysis') {
-            steps {
-                withSonarQubeEnv('sonar') {
-                    sh "mvn ${params.GOAL} sonar:sonar"
-                }
-            }
-        }
+        // stage('Build the code and sonar analysis') {
+        //     steps {
+        //         withSonarQubeEnv('sonar') {
+        //             sh "mvn ${params.GOAL} sonar:sonar"
+        //         }
+        //     }
+        // }
 
         // stage('reporting') {
         //     steps {
@@ -72,12 +72,12 @@ pipeline {
 
                 rtDownload (
                     serverId: 'jfrog',
-                    specPath: 'path/to/spec/relative/to/workspace/spec.json'
+                    specPath: '**/workspace/spec.json'
                 )
 
                 rtUpload (
                     serverId: 'jfrog',
-                    specPath: 'path/to/spec/relative/to/workspace/spec.json'
+                    specPath: '**/workspace/spec.json'
                 )
 
             }
