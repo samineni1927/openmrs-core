@@ -32,13 +32,13 @@ pipeline {
         //     }
         // }
 
-        stage('reporting') {
-            steps {
-                // junit testResults: '**/api/target/surefire-reports/*.xml'
-                // junit testResults: '**/liquibase/target/surefire-reports/*.xml'
-                junit '**/web/target/surefire-reports/*.xml'
-            }
-        }
+        // stage('reporting') {
+        //     steps {
+        //         junit testResults: '**/api/target/surefire-reports/*.xml'
+        //         junit testResults: '**/liquibase/target/surefire-reports/*.xml'
+        //         junit '**/web/target/surefire-reports/*.xml'
+        //     }
+        // }
 
         stage('Artifactory') {
             steps {             
