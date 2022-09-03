@@ -38,14 +38,14 @@ pipeline {
             steps {             
                 rtMavenResolver (
                     id: 'openmrs-resolver-unique-id',
-                    serverId: 'openmrs-id',
+                    serverId: 'jfrog',
                     releaseRepo: 'openmrsmaven-libs-release-local',
                     snapshotRepo: 'openmrsmaven-libs-snapshot-local'
                 )  
 
                 rtMavenDeployer (
                     id: 'openmrs-deployer-unique-id',
-                    serverId: 'openmrs-id',
+                    serverId: 'jfrog',
                     releaseRepo: 'openmrsmaven-libs-release-local',
                     snapshotRepo: 'openmrsmaven-libs-snapshot-local',
                 )
@@ -67,16 +67,16 @@ pipeline {
         stage ('publishing build info') {
             steps {
                 rtPublishBuildInfo (
-                    serverId: 'openmrs-id',
+                    serverId: 'jfrog',
                 )
 
                 rtDownload (
-                    serverId: 'openmrs-id',
+                    serverId: 'jfrog',
                     specPath: 'path/to/spec/relative/to/workspace/spec.json'
                 )
 
                 rtUpload (
-                    serverId: 'openmrs-id',
+                    serverId: 'jfrog',
                     specPath: 'path/to/spec/relative/to/workspace/spec.json'
                 )
 
