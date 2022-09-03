@@ -12,6 +12,10 @@ pipeline {
         choice(name: 'GOAL', choices: ['compile', 'package', 'clean package'])
     }
 
+    environment {
+        MAVEN_HOME = '/usr/share/maven'
+    }
+
     stages {
         stage('source code') {
             steps {
@@ -51,7 +55,7 @@ pipeline {
                 )
 
                 rtMavenRun (
-                    tool: MAVEN_TOOL,
+                    tool: ${MAVEN_HOME},
                     useWrapper: true,
                     pom: 'maven-example/pom.xml',
                     goals: 'clean install',
