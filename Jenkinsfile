@@ -53,7 +53,7 @@ pipeline {
                 rtMavenRun (
                     environment {
                         MAVEN_HOME = '/usr/share/maven'
-                        useWrapper: true,
+                        useWrapper: 'true',
                         pom: 'maven-example/pom.xml',
                         goals: 'clean install',
                         resolverId: 'openmrs-resolver-unique-id',
