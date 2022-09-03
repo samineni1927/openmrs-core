@@ -32,11 +32,13 @@ pipeline {
         //     }
         // }
 
-        // stage('reporting') {
-        //     steps {
-        //         junit testResults: 'target/surefire-reports/*.xml'
-        //     }
-        // }
+        stage('reporting') {
+            steps {
+                junit testResults: '**/api/target/surefire-reports/*.xml'
+                junit testResults: '**/liquibase/target/surefire-reports/*.xml'
+                junit testResults: '**/web/target/surefire-reports/*.xml'
+            }
+        }
 
         stage('Artifactory') {
             steps {             
@@ -70,16 +72,18 @@ pipeline {
                 rtPublishBuildInfo (
                     serverId: 'jfrog',
                 )
-
-                // rtDownload (
-                //     serverId: 'jfrog',
+                rtBuildInfo (
+                    captureEnv: true,
+                )
+                rtDownload (
+                    serverId: 'jfrog',
                 //     specPath: '**/workspace/spec.json'
-                // )
+                )
 
-                // rtUpload (
-                //     serverId: 'jfrog',
+                rtUpload (
+                    serverId: 'jfrog',
                 //     specPath: '**/workspace/spec.json'
-                // )
+                )
 
             }
         }
