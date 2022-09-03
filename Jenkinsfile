@@ -55,8 +55,7 @@ pipeline {
                 )
 
                 rtMavenRun (
-                    tool: "${MAVEN_HOME}",
-                    useWrapper: true,
+                    tool: 'MAVEN_HOME',
                     pom: 'pom.xml',
                     goals: 'clean install',
                     resolverId: 'openmrs-resolver-unique-id',
