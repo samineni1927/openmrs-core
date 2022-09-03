@@ -36,7 +36,7 @@ pipeline {
         //     steps {
         //         junit testResults: '**/api/target/surefire-reports/*.xml'
         //         junit testResults: '**/liquibase/target/surefire-reports/*.xml'
-        //         junit '**/web/target/surefire-reports/*.xml'
+        //         junit testResults: '**/web/target/surefire-reports/*.xml'
         //     }
         // }
 
@@ -56,14 +56,14 @@ pipeline {
                     snapshotRepo: 'openmrsmaven-libs-snapshot-local',
                 )
 
-                rtMavenRun (
-                    tool: 'MAVEN_HOME',
-                    pom: 'pom.xml',
-                    goals: 'clean install',
-                    resolverId: 'openmrs-resolver-unique-id',
-                    deployerId: 'openmrs-deployer-unique-id'
+                // rtMavenRun (
+                //     tool: 'MAVEN_HOME',
+                //     pom: 'pom.xml',
+                //     goals: 'clean install',
+                //     resolverId: 'openmrs-resolver-unique-id',
+                //     deployerId: 'openmrs-deployer-unique-id'
                     
-                )
+                // )
 
             }
         }
