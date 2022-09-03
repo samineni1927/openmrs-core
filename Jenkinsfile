@@ -50,17 +50,17 @@ pipeline {
                     snapshotRepo: 'openmrsmaven-libs-snapshot-local',
                 )
 
-                rtMavenRun (
-                    environment {
-                        MAVEN_HOME = '/usr/share/maven'
-                    }
-                    useWrapper: true,
-                    pom: 'maven-example/pom.xml',
-                    goals: 'clean install',
-                    resolverId: 'openmrs-resolver-unique-id',
-                    deployerId: 'openmrs-deployer-unique-id'
+                // rtMavenRun (
+                //     environment {
+                //         MAVEN_HOME = '/usr/share/maven'
+                //     }
+                //     useWrapper: true,
+                //     pom: 'maven-example/pom.xml',
+                //     goals: 'clean install',
+                //     resolverId: 'openmrs-resolver-unique-id',
+                //     deployerId: 'openmrs-deployer-unique-id'
                     
-                )
+                // )
 
             }
         }
