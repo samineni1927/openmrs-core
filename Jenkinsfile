@@ -28,13 +28,58 @@ pipeline {
             }
         }
 
-        stage('reporting') {
-            steps {
-                junit testResults: 'target/surefire-reports/*.xml'
+        // stage('reporting') {
+        //     steps {
+        //         junit testResults: 'target/surefire-reports/*.xml'
+        //     }
+        // }
+
+        stage('Artifactory') {
+            steps {             
+                rtMavenResolver (
+                    id: 'openmrs-resolver-unique-id',
+                    serverId: 'openmrs-id',
+                    releaseRepo: 'openmrsmaven-libs-release-local',
+                    snapshotRepo: 'openmrsmaven-libs-snapshot-local'
+                )  
+
+                rtMavenDeployer (
+                    id: 'openmrs-deployer-unique-id',
+                    serverId: 'openmrs-id',
+                    releaseRepo: 'openmrsmaven-libs-release-local',
+                    snapshotRepo: 'openmrsmaven-libs-snapshot-local',
+                )
+
+                rtMavenRun (
+                    environment {
+                        MAVEN_HOME = '/usr/share/maven',
+                        useWrapper: true,
+                        pom: 'maven-example/pom.xml',
+                        goals: 'clean install',
+                        resolverId: 'openmrs-resolver-unique-id',
+                        deployerId: 'openmrs-deployer-unique-id'
+                    }
+                )
+
             }
         }
+        stage ('publishing build info') {
+            steps {
+                rtPublishBuildInfo (
+                    serverId: 'openmrs-id',
+                )
 
+                rtDownload (
+                    serverId: 'openmrs-id',
+                    specPath: 'path/to/spec/relative/to/workspace/spec.json'
+                )
 
+                rtUpload (
+                    serverId: 'openmrs-id',
+                    specPath: 'path/to/spec/relative/to/workspace/spec.json'
+
+            }
+        }
 
     }
     post {
