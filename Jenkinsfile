@@ -55,7 +55,7 @@ pipeline {
                 )
 
                 rtMavenRun (
-                    tool: ${MAVEN_HOME},
+                    tool: "${MAVEN_HOME}",
                     useWrapper: true,
                     pom: 'maven-example/pom.xml',
                     goals: 'clean install',
