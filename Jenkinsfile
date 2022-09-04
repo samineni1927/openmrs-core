@@ -12,9 +12,6 @@ pipeline {
         choice(name: 'GOAL', choices: ['compile', 'package', 'clean package'])
     }
 
-    environment {
-        MAVEN_HOME = '/usr/share/maven'
-    }
 
     stages {
         stage('source code') {
@@ -32,61 +29,50 @@ pipeline {
         //     }
         // }
 
-        // stage('reporting') {
-        //     steps {
-        //         junit testResults: '**/api/target/surefire-reports/*.xml'
-        //         junit testResults: '**/liquibase/target/surefire-reports/*.xml'
-        //         junit testResults: '**/web/target/surefire-reports/*.xml'
-        //     }
-        // }
-
         stage('Artifactory') {
             steps {             
-                rtMavenResolver (
-                    id: 'openmrs-resolver-unique-id',
-                    serverId: 'jfrog',
-                    releaseRepo: 'openmrsmaven-libs-release-local',
-                    snapshotRepo: 'openmrsmaven-libs-snapshot-local'
-                )  
-
                 rtMavenDeployer (
-                    id: 'openmrs-deployer-unique-id',
+                    id: 'openmrs-deployer',
                     serverId: 'jfrog',
                     releaseRepo: 'openmrsmaven-libs-release-local',
                     snapshotRepo: 'openmrsmaven-libs-snapshot-local',
                 )
 
-                // rtMavenRun (
-                //     tool: 'MAVEN_HOME',
-                //     pom: 'pom.xml',
-                //     goals: 'clean install',
-                //     resolverId: 'openmrs-resolver-unique-id',
-                //     deployerId: 'openmrs-deployer-unique-id'
-                    
-                // )
+                rtMavenRun (
+                    tool: 'MAVEN_HOME',
+                    pom: 'pom.xml',
+                    goals: 'clean install',
+                    deployerId: 'openmrs-deployer'
+                )
 
             }
         }
-        stage ('publishing build info') {
+        
+        stage('reporting') {
             steps {
-                rtPublishBuildInfo (
-                    serverId: 'jfrog',
-                )
-                rtBuildInfo (
-                    captureEnv: true,
-                )
-                rtDownload (
-                    serverId: 'jfrog',
-                //     specPath: '**/workspace/spec.json'
-                )
-
-                rtUpload (
-                    serverId: 'jfrog',
-                //     specPath: '**/workspace/spec.json'
-                )
-
+                junit testResults: '**/surefire-reports/*.xml'
             }
         }
+        // stage ('publishing build info') {
+        //     steps {
+        //         rtPublishBuildInfo (
+        //             serverId: 'jfrog',
+        //         )
+        //         rtBuildInfo (
+        //             captureEnv: true,
+        //         )
+        //         rtDownload (
+        //             serverId: 'jfrog',
+        //         //     specPath: '**/workspace/spec.json'
+        //         )
+
+        //         rtUpload (
+        //             serverId: 'jfrog',
+        //         //     specPath: '**/workspace/spec.json'
+        //         )
+
+        //     }
+        // }
 
     }
     post {
